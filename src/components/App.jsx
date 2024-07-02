@@ -1,12 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
+import Header from "./Header/Header";
+import Home from "./Home/Home";
+import Movies from "./Movies/Movies";
+import MovieDetails from "./MoviesDetails/MovieDetails";
 
-function App() {
+const App = () => {
+  const [view, setView] = useState("home");
+  const [selectedMovieId, setSelectedMovieId] = useState(null);
+  const [selectedTab, setSelectedTab] = useState("cast");
+
+  const renderView = () => {
+    if (view === "home") {
+      return (
+        <Home
+          onMovieClick={(id) => {
+            setSelectedMovieId(id);
+            setView("movieDetails");
+          }}
+        />
+      );
+    }
+    if (view === "movies") {
+      return (
+        <Movies
+          onMovieClick={(id) => {
+            setSelectedMovieId(id);
+            setView("movieDetails");
+          }}
+        />
+      );
+    }
+    if (view === "movieDetails") {
+      return (
+        <MovieDetails
+          movieId={selectedMovieId}
+          selectedTab={selectedTab}
+          onTabChange={setSelectedTab}
+        />
+      );
+    }
+  };
+
   return (
-    <>
-      <h1>React Homework Template (Vite)</h1>
-      <p>here will be movie library with search bar</p>
-    </>
+    <div className="App">
+      <Header view={view} setView={setView} />
+      {renderView()}
+    </div>
   );
-}
+};
 
 export default App;

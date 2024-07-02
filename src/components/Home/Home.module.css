@@ -1,0 +1,35 @@
+.home {
+  padding: 20px;
+}
+
+.movieList {
+  list-style: none;
+  padding: 0;
+}
+
+.movieItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.rank {
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.movieInfo {
+  margin-left: 10px;
+}
+
+.movieItem img {
+  width: 50px;
+  height: 75px;
+  border-radius: 5px;
+}

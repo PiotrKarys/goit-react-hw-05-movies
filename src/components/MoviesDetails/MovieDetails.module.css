@@ -1,0 +1,53 @@
+.movieDetails {
+  padding: 20px;
+}
+
+.backButton {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: none;
+  background-color: #ff6347;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.movieHeader {
+  display: flex;
+}
+
+.moviePoster {
+  width: 300px;
+  height: 450px;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.movieInfo h1 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.movieInfo p {
+  margin: 5px 0;
+}
+
+.additionalInfo h2 {
+  margin-top: 20px;
+}
+
+.additionalInfo ul {
+  list-style: none;
+  padding: 0;
+}
+
+.additionalInfo li {
+  display: inline;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.additionalInfo li.active {
+  text-decoration: underline;
+  color: #ff6347;
+}
