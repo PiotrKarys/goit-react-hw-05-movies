@@ -61,7 +61,7 @@ const MovieDetails = ({ movieId, selectedTab, onTabChange }) => {
 
 MovieDetails.propTypes = {
   movieId: PropTypes.number.isRequired,
-  selectedTab: PropTypes.string.isRequired,
+  selectedTab: PropTypes.string,
   onTabChange: PropTypes.func.isRequired,
 };
 

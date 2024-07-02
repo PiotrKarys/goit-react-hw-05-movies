@@ -12,7 +12,9 @@ const Header = ({ view, setView }) => (
           Home
         </li>
         <li
-          className={view === "movies" ? styles.active : ""}
+          className={
+            view === "movies" || view === "movieDetails" ? styles.active : ""
+          }
           onClick={() => setView("movies")}>
           Movies
         </li>

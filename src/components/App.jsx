@@ -7,7 +7,7 @@ import MovieDetails from "./MoviesDetails/MovieDetails";
 const App = () => {
   const [view, setView] = useState("home");
   const [selectedMovieId, setSelectedMovieId] = useState(null);
-  const [selectedTab, setSelectedTab] = useState("cast");
+  const [selectedTab, setSelectedTab] = useState(null);
 
   const renderView = () => {
     if (view === "home") {
