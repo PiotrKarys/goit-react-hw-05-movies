@@ -18,7 +18,7 @@ const MovieDetails = ({ movieId, selectedTab, onTabChange }) => {
 
   return (
     <div className={styles.movieDetails}>
-      <button onClick={() => onTabChange("home")} className={styles.backButton}>
+      <button onClick={() => onTabChange("./")} className={styles.backButton}>
         ← Go back
       </button>
       <div className={styles.movieHeader}>
