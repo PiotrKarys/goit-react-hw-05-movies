@@ -1,7 +1,9 @@
 .header {
-  background-color: #f8f8f8;
+  display: flex;
+  background-color: #c0baba;
   padding: 10px 20px;
   border-bottom: 1px solid #ccc;
+  align-items: center;
 }
 
 .navList {
@@ -11,14 +13,32 @@
   padding: 0;
 }
 
-.navList li {
+.navList li,
+.navList a {
   margin-right: 20px;
   cursor: pointer;
   font-size: 18px;
   font-weight: bold;
+  color: #333;
+  text-decoration: none;
 }
 
-.navList li.active {
+.navList li.active,
+.navList a.active {
   text-decoration: underline;
   color: #ff6347;
+}
+.logoContainer {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.logo {
+  cursor: pointer;
+  max-width: 100px;
+  max-height: 50px;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  background-color: #e2dddd;
 }

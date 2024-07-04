@@ -1,15 +1,20 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { searchMovies } from "../api";
-import PropTypes from "prop-types";
 import styles from "./Movies.module.css";
 
-const Movies = ({ onMovieClick }) => {
+const Movies = () => {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
+  const navigate = useNavigate();
 
   const handleSearch = (e) => {
     e.preventDefault();
     searchMovies(query).then((data) => setMovies(data.results));
+  };
+
+  const handleMovieClick = (movieId) => {
+    navigate(`/movies/${movieId}`);
   };
 
   return (
@@ -31,7 +36,7 @@ const Movies = ({ onMovieClick }) => {
           <li
             key={movie.id}
             className={styles.movieItem}
-            onClick={() => onMovieClick(movie.id)}>
+            onClick={() => handleMovieClick(movie.id)}>
             <img
               src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
               alt={movie.title}
@@ -44,10 +49,6 @@ const Movies = ({ onMovieClick }) => {
       </ul>
     </div>
   );
-};
-
-Movies.propTypes = {
-  onMovieClick: PropTypes.func.isRequired,
 };
 
 export default Movies;

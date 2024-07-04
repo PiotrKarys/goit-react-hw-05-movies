@@ -1,35 +1,44 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import Loader from "../Loader/Loader";
 import { getMovieDetails } from "../api";
-import Cast from "../Cast/Cast";
-import Reviews from "../Reviews/Reviews";
 import styles from "./MovieDetails.module.css";
 
-const MovieDetails = ({ movieId, selectedTab, onTabChange }) => {
+const MovieDetails = ({ selectedTab }) => {
+  const { movieId } = useParams();
+  const navigate = useNavigate();
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
-    getMovieDetails(movieId).then((data) => setMovie(data));
+    const fetchMovieDetails = async () => {
+      const data = await getMovieDetails(movieId);
+      setMovie(data);
+    };
+    fetchMovieDetails();
   }, [movieId]);
 
   if (!movie) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
+  const handleGoBack = () => {
+    navigate("/");
+  };
 
   return (
     <div className={styles.movieDetails}>
-      <button onClick={() => onTabChange("./")} className={styles.backButton}>
-        ← Go back
+      <button className={styles.backButton} onClick={handleGoBack}>
+        Go back
       </button>
       <div className={styles.movieHeader}>
         <img
-          src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}
           className={styles.moviePoster}
         />
         <div className={styles.movieInfo}>
           <h1>
-            {movie.title} ({movie.release_date.split("-")[0]})
+            {movie.title} ({movie.release_date.substring(0, 4)})
           </h1>
           <p>User Score: {Math.round(movie.vote_average * 10)}%</p>
           <h2>Overview</h2>
@@ -41,26 +50,27 @@ const MovieDetails = ({ movieId, selectedTab, onTabChange }) => {
       <div className={styles.additionalInfo}>
         <h2>Additional information</h2>
         <ul>
-          <li
-            className={selectedTab === "cast" ? styles.active : ""}
-            onClick={() => onTabChange("cast")}>
-            Cast
+          <li>
+            <Link
+              to={`/movies/${movieId}/cast`}
+              className={selectedTab === "cast" ? styles.active : " "}>
+              Cast
+            </Link>
           </li>
-          <li
-            className={selectedTab === "reviews" ? styles.active : ""}
-            onClick={() => onTabChange("reviews")}>
-            Reviews
+          <li>
+            <Link
+              to={`/movies/${movieId}/reviews`}
+              className={selectedTab === "reviews" ? styles.active : " "}>
+              Reviews
+            </Link>
           </li>
         </ul>
-        {selectedTab === "cast" && <Cast movieId={movieId} />}
-        {selectedTab === "reviews" && <Reviews movieId={movieId} />}
       </div>
     </div>
   );
 };
 
 MovieDetails.propTypes = {
-  movieId: PropTypes.number.isRequired,
   selectedTab: PropTypes.string,
   onTabChange: PropTypes.func.isRequired,
 };

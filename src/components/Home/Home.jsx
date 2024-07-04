@@ -1,41 +1,50 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { getTrendingMovies } from "../api";
-import PropTypes from "prop-types";
+import Loader from "../Loader/Loader";
 import styles from "./Home.module.css";
 
-const Home = ({ onMovieClick }) => {
-  const [movies, setMovies] = useState([]);
+const Home = () => {
+  const [movies, setMovies] = React.useState(null);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    getTrendingMovies().then((data) => setMovies(data.results));
+  React.useEffect(() => {
+    const fetchTrendingMovies = async () => {
+      const data = await getTrendingMovies();
+      setMovies(data.results);
+    };
+    fetchTrendingMovies();
   }, []);
+
+  if (!movies) {
+    return <Loader />;
+  }
+
+  const handleMovieClick = (movieId) => {
+    navigate(`/movies/${movieId}`);
+  };
 
   return (
     <div className={styles.home}>
-      <h1>Trending Movies</h1>
+      <h1>Trending Today</h1>
       <ul className={styles.movieList}>
         {movies.map((movie, index) => (
           <li
             key={movie.id}
             className={styles.movieItem}
-            onClick={() => onMovieClick(movie.id)}>
+            onClick={() => handleMovieClick(movie.id)}>
             <span className={styles.rank}>{index + 1}</span>
             <img
               src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
               alt={movie.title}
+              // className={styles.poster}
             />
-            <div className={styles.movieInfo}>
-              <h2>{movie.title}</h2>
-            </div>
+            <span className={styles.movieInfo}>{movie.title}</span>
           </li>
         ))}
       </ul>
     </div>
   );
-};
-
-Home.propTypes = {
-  onMovieClick: PropTypes.func.isRequired,
 };
 
 export default Home;

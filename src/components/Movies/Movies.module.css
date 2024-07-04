@@ -7,13 +7,15 @@
   justify-content: center;
   margin-bottom: 20px;
 }
-
 .searchInput {
+  outline: none;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   width: 300px;
   margin-right: 10px;
+  font-family: fantasy;
+  letter-spacing: 2px;
 }
 
 .searchButton {
